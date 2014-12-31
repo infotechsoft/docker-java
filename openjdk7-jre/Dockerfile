@@ -1,12 +1,13 @@
 # Docker file for cent-os with OpenJDK v7 JRE
-FROM centos
+FROM centos:centos7
 
 MAINTAINER Ray Bradley "https://github.com/rmbrad"
 
-RUN yum -y update && \
-	yum -y install java-1.7.0-openjdk.x86_64 && \
+ENV JAVA_VERSION 1.7.0.71
+
+RUN yum -y install java-1.7.0-openjdk-$JAVA_VERSION && \
 	yum -y clean all
 
-ENV JAVA_HOME /usr/lib/jvm/jre-1.7.0-openjdk.x86_64
+ENV JAVA_HOME /usr/lib/jvm/jre
 
 CMD ["bash"]
