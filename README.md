@@ -1,7 +1,7 @@
-InfotechSoft Java
-=================
+InfotechSoft Java Images
+========================
 
-This repository contains `Dockerfiles` for running and building Java applications on CentOS.
+This repository contains `Dockerfiles` for running and building Java applications on CentOS within docker containers.
 
 ## How to Use
 
