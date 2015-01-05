@@ -26,6 +26,7 @@ Create a `Dockerfile` within the root of your java application, something like:
 
     FROM infotechsoft/java:7-jre
     COPY . /usr/local/myapp
+    WORKDIR /usr/local/myapp
     CMD ["java", "-cp ./lib/*:./config", "App"]
 
 You may then build and run the container as follows:
