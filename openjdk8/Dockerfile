@@ -1,9 +1,9 @@
-# Docker file for CentOS with OpenJDK v7 JDK
+# Docker file for CentOS with OpenJDK v8 JDK
 FROM centos:centos7
 
 MAINTAINER Ray Bradley "https://github.com/rmbrad"
 
-ENV JAVA_VERSION 1.8.0.60
+ENV JAVA_VERSION 1.8.0.65
 
 RUN yum -y install java-1.8.0-openjdk-devel-$JAVA_VERSION && \
 	yum -y clean all
