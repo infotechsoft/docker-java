@@ -3,7 +3,7 @@ FROM centos:centos7
 
 MAINTAINER Ray Bradley "https://github.com/rmbrad"
 
-ENV JAVA_VERSION 1.7.0.121
+ENV JAVA_VERSION 1.7.0.151
 
 RUN yum -y install java-1.7.0-openjdk-devel-$JAVA_VERSION && \
 	yum -y clean all
