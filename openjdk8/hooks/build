@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ $SOURCE_BRANCH != "master" ]; then
+    JAVA8_VERSION=$SOURCE_BRANCH
+else
+    JAVA8_VERSION=
+fi
+
+echo "Building $IMAGE_NAME with Java8 $JAVA8_VERSION..."
+
+docker build \
+    --build-arg JAVA8_VERSION=$JAVA8_VERSION \
+    -t $IMAGE_NAME .
