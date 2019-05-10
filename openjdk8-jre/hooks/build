@@ -1,3 +1,0 @@
-#!/bin/bash
-
-source ../openjdk8/hooks/build

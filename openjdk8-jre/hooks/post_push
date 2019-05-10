@@ -1,8 +1,0 @@
-#!/bin/bash
-
-REPO_NAME=$(echo $IMAGE_NAME | cut -d ':' -f 1)
-
-for TAG in {8-jre,openjdk-8-jre}; do
-    docker tag $IMAGE_NAME $REPO_NAME:$TAG
-    docker push $REPO_NAME:$TAG
-done
