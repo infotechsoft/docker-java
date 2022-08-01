@@ -1,10 +1,16 @@
 #!/bin/bash
 
+JAVA_VERSION=$SOURCE_BRANCH
+MAJOR_VERSION=$(echo $JAVA_VERSION | cut -d . -f 1)
+if [ $MAJOR_VERSION -eq 1 ]; then
+  MAJOR_VERSION=1.8.0
+fi
+
 REPO_NAME=$(echo $IMAGE_NAME | cut -d ':' -f 1)
 
 docker push $IMAGE_NAME-jre
 
-for TAG in {11,openjdk-11}; do
+for TAG in {$MAJOR_VERSION,openjdk-$MAJOR_VERSION}; do
     docker tag $IMAGE_NAME $REPO_NAME:$TAG
     docker push $REPO_NAME:$TAG
     docker tag $IMAGE_NAME-jre $REPO_NAME:$TAG-jre
