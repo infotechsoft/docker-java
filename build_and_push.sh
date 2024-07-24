@@ -18,14 +18,14 @@ echo "Building Java $MAJOR_VERSION JDK $BASE_IMAGE_NAME"
 
 docker build \
   --build-arg MAJOR_VERSION=$MAJOR_VERSION \
-  --build-arg JAVA_VERSION=$JAVA_VERSION \
+  --build-arg JAVA_VERSION= \
   -t $BASE_IMAGE_NAME .
 
 echo "Building Java $MAJOR_VERSION JRE $BASE_IMAGE_NAME-jre"
 
 docker build \
   --build-arg MAJOR_VERSION=$MAJOR_VERSION \
-  --build-arg JAVA_VERSION=$JAVA_VERSION \
+  --build-arg JAVA_VERSION= \
   --build-arg JAVA_DIST=headless \
   -t $BASE_IMAGE_NAME-jre .
 

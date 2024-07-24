@@ -1,5 +1,5 @@
-# Docker file for CentOS with OpenJDK v8 JDK
-FROM rockylinux:8
+# Docker file for CentOS with OpenJDK 
+FROM rockylinux:9
 
 LABEL maintainer="Ray Bradley <https://github.com/rmbrad>"
 
