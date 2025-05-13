@@ -10,9 +10,9 @@ This repository contains `Dockerfiles` for running and building Java application
 
 Commonly built Java versions based on OpenJDK:
 * Java 1.8.0 (latest: 1.8.0.422)
-* Java 11 (latest: 11.0.24)
-* Java 17 (latest: 17.0.12)
-* Java 21 (latest: 21.0.4)
+* Java 11 (latest: 11.0.27)
+* Java 17 (latest: 17.0.15)
+* Java 21 (latest: 21.0.7)
 
 ## How to Use
 
@@ -45,3 +45,4 @@ You may then build and run the container as follows:
     docker build -t myapp .
     docker run --name app -d myapp
 
+2025-05-13 Updated to use rockylinux/rockylinux:9 base image
