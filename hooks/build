@@ -10,14 +10,14 @@ else
     JAVA_VERSION=
 fi
 
-echo "Building Java11 JDK $IMAGE_NAME"
+echo "Building Java JDK $IMAGE_NAME"
 
 docker build \
     --build-arg MAJOR_VERSION=$MAJOR_VERSION \
     --build-arg JAVA_VERSION=$JAVA_VERSION \
     -t $IMAGE_NAME .
 
-echo "Building Java11 JRE $IMAGE_NAME-jre"
+echo "Building Java JRE $IMAGE_NAME-jre"
 
 echo $MAJOR_VERSION - $JAVA_VERSION
 docker build \
