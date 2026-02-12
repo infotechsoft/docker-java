@@ -1,0 +1,141 @@
+name: Build and Push Multi-Platform Java Images
+
+on:
+  workflow_dispatch:
+    inputs:
+      push:
+        description: 'Push images to Docker Hub'
+        required: false
+        default: false
+        type: boolean
+      java_versions:
+        description: 'Java versions to build (space-separated, default: 8 11 17 21 25)'
+        required: false
+        default: '8 11 17 21 25'
+        type: string
+
+env:
+  REGISTRY: docker.io
+  REPO_NAME: infotechsoft/java
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      java_versions: ${{ steps.parse.outputs.java_versions }}
+    steps:
+      - name: Parse Java versions
+        id: parse
+        run: |
+          VERSIONS="${{ inputs.java_versions || '8 11 17 21 25' }}"
+          JSON_ARRAY=$(echo "$VERSIONS" | tr ' ' '\n' | jq -R . | jq -s . | tr -d '\n')
+          echo "java_versions=$JSON_ARRAY" >> $GITHUB_OUTPUT
+
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java_version: ${{ fromJson(needs.setup.outputs.java_versions) }}
+        java_dist: [jdk, jre]
+      fail-fast: false
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: linux/amd64,linux/arm64
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          platforms: linux/amd64,linux/arm64
+      
+      - name: Login to Docker Hub
+        if: inputs.push
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: Determine tags
+        id: tags
+        run: |
+          MAJOR_VERSION=${{ matrix.java_version }}
+          JAVA_DIST=${{ matrix.java_dist }}
+          
+          if [ "$JAVA_DIST" = "jdk" ]; then
+            TAGS="${REPO_NAME}:${MAJOR_VERSION},${REPO_NAME}:${MAJOR_VERSION}-jdk,${REPO_NAME}:zulu-${MAJOR_VERSION}-jdk"
+          else
+            TAGS="${REPO_NAME}:${MAJOR_VERSION}-jre,${REPO_NAME}:zulu-${MAJOR_VERSION}-jre"
+          fi
+          
+          echo "tags=${TAGS}" >> $GITHUB_OUTPUT
+          echo "base_tag=${REPO_NAME}:${MAJOR_VERSION}" >> $GITHUB_OUTPUT
+      
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: ${{ inputs.push }}
+          tags: ${{ steps.tags.outputs.tags }}
+          build-args: |
+            MAJOR_VERSION=${{ matrix.java_version }}
+            JAVA_VERSION=
+            JAVA_DIST=${{ matrix.java_dist }}
+          provenance: true
+          sbom: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      
+      - name: Generate CVE report
+        id: scout
+        if: inputs.push && matrix.java_dist == 'jdk'
+        uses: docker/scout-action@v1
+        with:
+          command: cves
+          image: ${{ steps.tags.outputs.base_tag }}
+      
+      - name: Update CVE reports
+        if: inputs.push && matrix.java_dist == 'jdk'
+        run: |
+          echo "${{ steps.scout.outputs.cves }}" > reports/java-${{ matrix.java_version }}-cves.md
+      
+      - name: Upload CVE report artifact
+        if: inputs.push && matrix.java_dist == 'jdk'
+        uses: actions/upload-artifact@v6
+        with:
+          name: cve-reports-java-${{ matrix.java_version }}
+          path: reports/java-${{ matrix.java_version }}-cves.md
+          retention-days: 1
+
+  commit-reports:
+    needs: build
+    runs-on: ubuntu-latest
+    if: inputs.push
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Download all CVE report artifacts
+        uses: actions/download-artifact@v7
+        with:
+          path: reports
+          pattern: cve-reports-java-*
+          merge-multiple: true
+      
+      - name: Commit all CVE reports
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: Update CVE reports for all Java versions"
+          file_pattern: 'reports/*.md'
