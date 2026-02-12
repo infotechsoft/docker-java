@@ -9,11 +9,17 @@ LABEL maintainer="Ray Bradley <https://github.com/rmbrad>"
 LABEL maintainer="Thomas Taylor <https://github.com/thomasjtaylor>"
 
 ARG MAJOR_VERSION=
+ARG JAVA_VERSION=
 ARG JAVA_DIST=jdk
+
+ENV JAVA_VERSION=${JAVA_VERSION}
 ENV JAVA_DIST=${JAVA_DIST}
 
-ADD adoptium.repo /etc/yum.repos.d/adoptium.repo
-RUN dnf -y install temurin-$MAJOR_VERSION-$JAVA_DIST && \
+ADD ../apache_install.sh /usr/local/bin/apache_install
+
+RUN dnf -y install https://cdn.azul.com/zulu/bin/zulu-repo-1.0.0-2.noarch.rpm && \
+  if [ -z ${JAVA_VERSION} ]; then export VER=; else export VER=-${JAVA_VERSION}; fi && \
+  dnf -y install zulu"$MAJOR_VERSION"-"$JAVA_DIST$VER" && \
  	dnf -y clean all && \
  	rm -rf /var/cache/*
 

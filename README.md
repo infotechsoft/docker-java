@@ -50,5 +50,6 @@ You may then build and run the container as follows:
     docker run --name app -d myapp
 
 ## Update History
+* 2026-02-12 Updated to [Azul Zulu](https://www.azul.com/products/core/) OpenJDK build
 * 2025-10-11 Updated to rockylinux/rockylinux:10, Temurin Java
 * 2025-05-13 Updated to use rockylinux/rockylinux:9 base image
