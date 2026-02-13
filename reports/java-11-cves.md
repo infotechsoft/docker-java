@@ -2,7 +2,7 @@
 
 <details open=true><summary>:package: Image Reference</strong> <code>infotechsoft/java:11</code></summary>
 <table>
-<tr><td>digest</td><td><code>sha256:b4904a050e7e76b33c218b9bf30de47df3c4e8f0a116baf04c31c2467dc75d71</code></td><tr><tr><td>vulnerabilities</td><td><img alt=critical: 0 src=https://img.shields.io/badge/critical-0-lightgrey/> <img alt=high: 0 src=https://img.shields.io/badge/high-0-lightgrey/> <img alt=medium: 0 src=https://img.shields.io/badge/medium-0-lightgrey/> <img alt=low: 0 src=https://img.shields.io/badge/low-0-lightgrey/> <!-- unspecified: 0 --></td></tr>
+<tr><td>digest</td><td><code>sha256:348b62bf0a5205f65c06efa128f15942fcaf422f79383e34f1304aedc224bf12</code></td><tr><tr><td>vulnerabilities</td><td><img alt=critical: 0 src=https://img.shields.io/badge/critical-0-lightgrey/> <img alt=high: 0 src=https://img.shields.io/badge/high-0-lightgrey/> <img alt=medium: 0 src=https://img.shields.io/badge/medium-0-lightgrey/> <img alt=low: 0 src=https://img.shields.io/badge/low-0-lightgrey/> <!-- unspecified: 0 --></td></tr>
 <tr><td>platform</td><td>linux/amd64</td></tr>
 <tr><td>size</td><td>270 MB</td></tr>
 <tr><td>packages</td><td>155</td></tr>
