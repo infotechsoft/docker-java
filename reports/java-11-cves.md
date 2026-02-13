@@ -1,14 +1,20 @@
 <h2>:mag: Vulnerabilities of <code>infotechsoft/java:11</code></h2>
 
-<details open="true"><summary>:package: Image Reference</strong> <code>infotechsoft/java:11</code></summary>
+<details open=true><summary>:package: Image Reference</strong> <code>infotechsoft/java:11</code></summary>
 <table>
-<tr><td>digest</td><td><code>sha256:2a9f59367002baca19104c20da7dc3dbdb74681031feac7df7b721491dad99da</code></td><tr><tr><td>vulnerabilities</td><td><img alt="critical: 0" src="https://img.shields.io/badge/critical-0-lightgrey"/> <img alt="high: 0" src="https://img.shields.io/badge/high-0-lightgrey"/> <img alt="medium: 0" src="https://img.shields.io/badge/medium-0-lightgrey"/> <img alt="low: 0" src="https://img.shields.io/badge/low-0-lightgrey"/> <!-- unspecified: 0 --></td></tr>
+<tr><td>digest</td><td><code>sha256:b4904a050e7e76b33c218b9bf30de47df3c4e8f0a116baf04c31c2467dc75d71</code></td><tr><tr><td>vulnerabilities</td><td><img alt=critical: 0 src=https://img.shields.io/badge/critical-0-lightgrey/> <img alt=high: 0 src=https://img.shields.io/badge/high-0-lightgrey/> <img alt=medium: 0 src=https://img.shields.io/badge/medium-0-lightgrey/> <img alt=low: 0 src=https://img.shields.io/badge/low-0-lightgrey/> <!-- unspecified: 0 --></td></tr>
 <tr><td>platform</td><td>linux/amd64</td></tr>
-<tr><td>size</td><td>326 MB</td></tr>
-<tr><td>packages</td><td>199</td></tr>
+<tr><td>size</td><td>270 MB</td></tr>
+<tr><td>packages</td><td>155</td></tr>
 </table>
-</details></table>
+</details>
+<details><summary>:package: Base Image</strong> <code>rockylinux/rockylinux:10</code></summary>
+<table></td></tr>
+<tr><td>digest</td><td><code>sha256:b86cb4305db4c29abb1e3a1257fefccc184b5e4a94378e02844b340845ef9460</code></td></tr>
+<tr><td>vulnerabilities</td><td><img alt=critical: 0 src=https://img.shields.io/badge/critical-0-lightgrey/> <img alt=high: 0 src=https://img.shields.io/badge/high-0-lightgrey/> <img alt=medium: 0 src=https://img.shields.io/badge/medium-0-lightgrey/> <img alt=low: 0 src=https://img.shields.io/badge/low-0-lightgrey/> <!-- unspecified: 0 --></td></tr>
+</table>
 </details>
 
 <table></table>
+
 
