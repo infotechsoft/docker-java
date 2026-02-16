@@ -3,7 +3,7 @@ set -e
 
 PUSH=
 if [ "$(printf '%s' "${1}" | tr '[:upper:]' '[:lower:]')" = "push" ]; then
-  # PUSH=--push
+  PUSH=--push
   echo "Pushing images to Docker Hub"
 else
   echo "Building images only"
